@@ -1,3 +1,5 @@
+// Clase encargada de gestionar la conexión a la base de datos MySQL mediante JDBC
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
