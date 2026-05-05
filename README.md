@@ -50,6 +50,24 @@ USE proyecto_genesis;
 * queries.sql
 
 ---
+## 💻 Aplicación Java
+
+Se ha desarrollado una aplicación en Java para gestionar los recursos educativos del Proyecto Génesis.
+
+### Funcionalidades
+
+* Ver recursos
+* Añadir recursos
+* Buscar recursos por edad
+
+### Conexión
+
+La aplicación se conecta a MySQL mediante JDBC.
+
+### Ejecución
+
+1. Ejecutar la base de datos
+2. Ejecutar la clase Main.java
 
 ## 👩‍💻 Autor
 
