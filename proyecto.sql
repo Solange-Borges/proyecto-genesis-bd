@@ -1,3 +1,5 @@
+1. create_tables.sql
+
 CREATE DATABASE proyecto_genesis;
 USE proyecto_genesis;
 
@@ -37,7 +39,8 @@ CREATE TABLE suscripciones (
     fecha DATE
 );
 
--- INSERTS
+2. inserts.sql
+
 INSERT INTO categorias (nombre) VALUES
 ('Lecciones'),
 ('Actividades'),
@@ -48,7 +51,10 @@ INSERT INTO recursos (titulo, descripcion, edad, tipo, id_categoria) VALUES
 ('Arca de Noé', 'Actividad para niños', '6-7', 'Actividad', 2),
 ('Identidad en Dios', 'Enseñanza bíblica', '8-9', 'Guía', 3);
 
+3. queries.sql
+
 -- CONSULTAS
+
 SELECT * FROM categorias;
 
 SELECT * FROM recursos;
@@ -59,3 +65,17 @@ JOIN categorias ON recursos.id_categoria = categorias.id_categoria;
 
 SELECT * FROM recursos
 WHERE edad = '3-5';
+
+-- Recursos por categoría
+SELECT c.nombre, COUNT(r.id_recurso)
+FROM categorias c
+LEFT JOIN recursos r ON c.id_categoria = r.id_categoria
+GROUP BY c.nombre;
+
+-- Usuarios tipo maestro
+SELECT * FROM usuarios
+WHERE tipo_usuario = 'maestro';
+
+-- Recursos tipo actividad
+SELECT * FROM recursos
+WHERE tipo = 'actividad';
