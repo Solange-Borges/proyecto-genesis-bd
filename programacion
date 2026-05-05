@@ -1,1 +1,161 @@
+Main.java
 
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        RecursoDAO dao = new RecursoDAO();
+
+        int opcion;
+
+        do {
+            System.out.println("\n--- MENÚ ---");
+            System.out.println("1. Ver recursos");
+            System.out.println("2. Añadir recurso");
+            System.out.println("3. Buscar por edad");
+            System.out.println("0. Salir");
+
+            String entrada = sc.nextLine();
+            opcion = Integer.parseInt(entrada);
+
+            switch (opcion) {
+
+                case 1:
+                    dao.mostrarRecursos();
+                    break;
+
+                case 2:
+                    System.out.print("Título: ");
+                    String titulo = sc.nextLine();
+
+                    System.out.print("Edad: ");
+                    String edad = sc.nextLine();
+
+                    Recurso r = new Recurso(titulo, edad);
+                    dao.insertarRecurso(r);
+                    break;
+
+                case 3:
+                    System.out.print("Edad a buscar: ");
+                    String edadBuscar = sc.nextLine();
+                    dao.buscarPorEdad(edadBuscar);
+                    break;
+            }
+
+        } while (opcion != 0);
+
+ConexionBD.java
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ConexionBD {
+
+    public static Connection conectar() {
+        try {
+            return DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/proyecto_genesis",
+                    "root",
+                    "147258"
+            );
+        } catch (Exception e) {
+            System.out.println("Error conexión: " + e.getMessage());
+            return null;
+        }
+    }
+}
+
+
+    }
+}
+
+
+Recurso.java
+
+public class Recurso {
+
+    private String titulo;
+    private String edad;
+
+    public Recurso(String titulo, String edad) {
+        this.titulo = titulo;
+        this.edad = edad;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getEdad() {
+        return edad;
+    }
+}
+
+RecursoDAO.java
+
+import java.sql.*;
+
+public class RecursoDAO {
+
+    public void mostrarRecursos() {
+        try (Connection con = ConexionBD.conectar()) {
+
+            String sql = "SELECT * FROM recursos";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                System.out.println(
+                        rs.getString("titulo") + " - " +
+                                rs.getString("edad")
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void insertarRecurso(Recurso r) {
+        try (Connection con = ConexionBD.conectar()) {
+
+            String sql = "INSERT INTO recursos (titulo, edad) VALUES (?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, r.getTitulo());
+            ps.setString(2, r.getEdad());
+
+            ps.executeUpdate();
+
+            System.out.println("Recurso añadido");
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    // 👇 ESTE VA DENTRO DE LA CLASE
+    public void buscarPorEdad(String edad) {
+        try (Connection con = ConexionBD.conectar()) {
+
+            String sql = "SELECT * FROM recursos WHERE edad = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, edad);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(
+                        rs.getString("titulo") + " - " +
+                                rs.getString("edad")
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
