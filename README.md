@@ -1,25 +1,56 @@
-# Proyecto Génesis - Base de Datos
+# 📖 Proyecto Génesis – Base de Datos
 
-## Descripción
-Este proyecto consiste en la creación de una base de datos para una web educativa llamada Proyecto Génesis.
+## 🧩 Descripción
 
-## Tablas
-- usuarios
-- categorias
-- recursos
-- contactos
-- suscripciones
+Proyecto Génesis es una plataforma educativa online orientada a la enseñanza bíblica infantil para iglesias, familias y maestros.
 
-## Relación
-La tabla recursos está relacionada con categorias mediante id_categoria.
+Esta base de datos modela la estructura interna del sistema, permitiendo gestionar usuarios, recursos educativos, categorías, contactos y suscripciones.
 
-## Consultas
-Se han realizado consultas como:
+---
 
-- SELECT * FROM recursos;
-- JOIN entre recursos y categorias
-- Búsqueda por edad
+## 🎯 Objetivo
 
-## Tecnologías
-- MySQL
-- MySQL Workbench
+Organizar de forma estructurada la información de la plataforma para facilitar:
+
+* Gestión de recursos educativos
+* Clasificación por categorías
+* Interacción con usuarios y visitantes
+
+---
+
+## 🛠 Tecnologías utilizadas
+
+* MySQL
+* MySQL Workbench
+* Git y GitHub
+
+---
+
+## 📂 Estructura del proyecto
+
+* `/docs` → Documentación del proyecto (PDF)
+* `/diagrams` → Diagrama entidad-relación
+* `/sql` → Scripts SQL (creación, inserción y consultas)
+
+---
+
+## ⚙️ Cómo ejecutar
+
+1. Crear la base de datos:
+
+```sql
+CREATE DATABASE proyecto_genesis;
+USE proyecto_genesis;
+```
+
+2. Ejecutar los scripts en este orden:
+
+* create_tables.sql
+* inserts.sql
+* queries.sql
+
+---
+
+## 👩‍💻 Autor
+
+Solange Borges
